@@ -13,5 +13,5 @@ First time setup:
 11. Load the ID 2587
 12. Set the InfluxDB data source to the influxdb from step 5
 13. Save and go to the dashboard
-14. In the terminal, run `docker compose run k6 run --out influxdb=http://influxdb:8086/k6 /k6/registerAndChat.js`
+14. In the terminal, run `docker compose run --rm k6 run --out influxdb=http://influxdb:8086/k6 /k6/registerAndChat.js`
 15. Hopefully the test runs successfully and you see changes in the dashboard

@@ -100,6 +100,29 @@ export default function () {
 
   if (createUserDataRes.status !== 200) return;
 
+  const userDocumentId = createUserDataRes.json().name;
+
+  // Open chest
+  // https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents/patch
+  const openChestRes = http.patch(
+    `${FIRESTORE_URL}/${userDocumentId}?updateMask.fieldPaths=gold&updateMask.fieldPaths=chestLastOpenedOn`,
+    JSON.stringify({
+      fields: {
+        gold: { integerValue: 1284 },
+        chestLastOpenedOn: { timestampValue: "1970-01-01T00:00:00.000Z" },
+      },
+    }),
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  check(openChestRes, {
+    "Open chest: status is 200": (r) => r.status === 200,
+  });
+
+  if (openChestRes.status !== 200) return;
+
   // Fetch top 5 users for dashboard
   // https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents/get
   const dashboardUsersRes = http.get(
