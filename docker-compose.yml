@@ -18,6 +18,9 @@ services:
       - FIREBASE_PROJECT_ID=seng401-temp
       - FIREBASE_TOKEN=your-firebase-token
     command: ["firebase", "emulators:start"]
+    mem_limit: 512m  # Limit memory to 512MB
+    cpus: 1.0        # Limit to 1 CPU core
+
 
   influxdb:
     image: influxdb:1.8

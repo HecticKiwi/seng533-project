@@ -16,3 +16,5 @@ First time setup:
 14. Save and go to the dashboard
 15. In the terminal, run `docker compose run --rm k6 run --out influxdb=http://influxdb:8086/k6 /k6/registerAndChat.js`
 16. Hopefully the test runs successfully and you see changes in the dashboard
+
+The simulated hardware limits are set in the docker-compose.yml, see the `mem_limit` and `cpus` fields
