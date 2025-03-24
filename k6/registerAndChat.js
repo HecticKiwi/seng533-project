@@ -4,7 +4,7 @@ import http from "k6/http";
 export let options = {
   stages: [
     { duration: "1s", target: 2 },
-    { duration: "20s", target: 100 },
+    // { duration: "20s", target: 100 },
     // { duration: "60s", target: 1000 },
     // { duration: "60s", target: 20000 },
   ],
@@ -60,6 +60,7 @@ export default function () {
   if (updateProfileRes.status !== 200) return;
 
   // Create user data
+  // https://firebase.google.com/docs/reference/rest/auth#section-update-profile
   const createUserDataRes = http.post(
     `${FIRESTORE_URL}/projects/seng401-temp/databases/(default)/documents/users`,
     JSON.stringify({
