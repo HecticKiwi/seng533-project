@@ -141,7 +141,7 @@ export default function () {
   // Fetch global chat
   // https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents/get
   const globalChatRes = http.get(
-    `${FIRESTORE_URL}/projects/seng401-temp/databases/(default)/documents/chats/global/messages`,
+    `${FIRESTORE_URL}/projects/seng401-temp/databases/(default)/documents/chats/global/messages?pageSize=50`,
     {
       headers: { Authorization: `Bearer ${idToken}` },
     }
