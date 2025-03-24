@@ -14,7 +14,7 @@ First time setup:
 12. Load the ID 2587 (corresponds to this dashboard: https://grafana.com/grafana/dashboards/2587-k6-load-testing-results)
 13. Set the InfluxDB data source to the influxdb from step 5
 14. Save and go to the dashboard
-15. Edit the Errors Per Second panel and in the Queries tab, change the FROM table to http_req_failed, then save and return to the dashboard
+15. Edit the Errors Per Second panel and in the Queries tab, click the pencil icon to switch to raw SQL and enter in `SELECT count("value") FROM "http_req_failed" WHERE ("value"::field = 1) AND $timeFilter GROUP BY time($__interval) fill(none)`, then save and return to the dashboard
 16. In the terminal, run `docker compose run --rm k6 run /k6/registerAndChat.js`
 17. Hopefully the test runs successfully and you see changes in the dashboard
 
