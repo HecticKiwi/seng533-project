@@ -14,7 +14,7 @@ First time setup:
 12. Load the ID 2587 (corresponds to this dashboard: https://grafana.com/grafana/dashboards/2587-k6-load-testing-results)
 13. Set the InfluxDB data source to the influxdb from step 5
 14. Save and go to the dashboard
-15. In the terminal, run `docker compose run --rm k6 run --out influxdb=http://influxdb:8086/k6 /k6/registerAndChat.js`
+15. In the terminal, run `docker compose run --rm k6 run /k6/registerAndChat.js`
 16. Hopefully the test runs successfully and you see changes in the dashboard
 
 The simulated hardware limits are set in the docker-compose.yml, see the `mem_limit` and `cpus` fields
