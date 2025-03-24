@@ -102,6 +102,19 @@ export default function () {
 
   const userDocumentId = createUserDataRes.json().name;
 
+  // Fetch top 5 users for dashboard
+  // https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents/get
+  const dashboardUsersRes = http.get(
+    `${FIRESTORE_URL}/projects/seng401-temp/databases/(default)/documents/users?pageSize=5&orderBy=rankPoints`,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
+
+  check(dashboardUsersRes, {
+    "Fetch dashboard users: status is 200": (r) => r.status === 200,
+  });
+
   // Open chest
   // https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents/patch
   const openChestRes = http.patch(
@@ -122,19 +135,6 @@ export default function () {
   });
 
   if (openChestRes.status !== 200) return;
-
-  // Fetch top 5 users for dashboard
-  // https://firebase.google.com/docs/firestore/reference/rest/v1/projects.databases.documents/get
-  const dashboardUsersRes = http.get(
-    `${FIRESTORE_URL}/projects/seng401-temp/databases/(default)/documents/users?pageSize=5&orderBy=rankPoints`,
-    {
-      headers: { Authorization: `Bearer ${idToken}` },
-    }
-  );
-
-  check(dashboardUsersRes, {
-    "Fetch dashboard users: status is 200": (r) => r.status === 200,
-  });
 
   if (dashboardUsersRes.status !== 200) return;
 
