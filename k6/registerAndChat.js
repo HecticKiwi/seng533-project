@@ -2,11 +2,30 @@ import { check, sleep } from "k6";
 import http from "k6/http";
 
 export let options = {
+  // stages: [
+  //   { duration: "20s", target: 50 },
+  //   // { duration: "20s", target: 100 },
+  //   // { duration: "60s", target: 1000 },
+  //   // { duration: "60s", target: 20000 },
+  // ],
+  //Ramp Testing Parameters
+  // stages: [
+  //   { duration: "30s", target: 100 },
+  //   { duration: "1m", target: 500 },
+  //   { duration: "2m", target: 1000 },
+  // ],
+
+  //Spike Testing Parameters
+  // stages: [
+  //   { duration: "10s", target: 1000 },
+  //   { duration: "30s", target: 1000 },
+  //   { duration: "10s", target: 50 },
+  // ],
+  //Soak Testing Parameters
   stages: [
-    { duration: "20s", target: 50 },
-    // { duration: "20s", target: 100 },
-    // { duration: "60s", target: 1000 },
-    // { duration: "60s", target: 20000 },
+    { duration: "5m", target: 500 },
+    { duration: "30m", target: 500 },
+    { duration: "5m", target: 50 },
   ],
 };
 
