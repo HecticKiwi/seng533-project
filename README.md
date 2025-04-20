@@ -1,3 +1,9 @@
+# SENG 533 - Performance Analysis Project
+
+A project for SENG 533 (Software Performance Evaluation) that measures the performance of the Firebase Local Emulator Suite.
+
+## Setup
+
 First time setup:
 
 1. Install Docker Desktop and make sure it's running (if you're on Windows you'll likely need to install WSL 2 first)
