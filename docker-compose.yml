@@ -3,24 +3,23 @@ services:
     build: .
     container_name: firebase-emulator
     ports:
-      - "4000:4000"  # Emulator UI
-      - "4500:4500"  # Pub/Sub Emulator
-      - "5000:5000"  # Firebase Hosting
-      - "5001:5001"  # Cloud Functions Emulator
-      - "8080:8080"  # Firestore Emulator
-      - "8085:8085"  # BigQuery Emulator
-      - "9099:9099"  # Authentication Emulator
-      - "9199:9199"  # Firebase Storage Emulator
-      - "9229:9229"  # Debugging
+      - "4000:4000" # Emulator UI
+      - "4500:4500" # Pub/Sub Emulator
+      - "5000:5000" # Firebase Hosting
+      - "5001:5001" # Cloud Functions Emulator
+      - "8080:8080" # Firestore Emulator
+      - "8085:8085" # BigQuery Emulator
+      - "9099:9099" # Authentication Emulator
+      - "9199:9199" # Firebase Storage Emulator
+      - "9229:9229" # Debugging
     volumes:
       - .:/app
     environment:
       - FIREBASE_PROJECT_ID=seng401-temp
       - FIREBASE_TOKEN=your-firebase-token
     command: ["firebase", "emulators:start"]
-    # mem_limit: 512m  # Limit memory to 512MB
-    # cpus: 1.0        # Limit to 1 CPU core
-
+    mem_limit: 256m # Limit memory to 512MB
+    cpus: 2 # Limit to 1 CPU core
 
   influxdb:
     image: influxdb:1.8
@@ -42,12 +41,12 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=tester
     depends_on:
       - influxdb
     volumes:
       - grafana_data:/var/lib/grafana
-      
+
   k6:
     image: grafana/k6
     container_name: k6
@@ -57,6 +56,27 @@ services:
       - influxdb
     volumes:
       - ./k6:/k6
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
 
 volumes:
   influxdb_data:

@@ -19,3 +19,24 @@ First time setup:
 17. Hopefully the test runs successfully and you see changes in the dashboard
 
 The simulated hardware limits are set in the docker-compose.yml, see the `mem_limit` and `cpus` fields
+
+To view Memory Usage and CPU usage in grafana
+
+1. Go to `localhost:3000` to see the Grafana page
+2. Add a new data source, choose prometheus and set the URL to http://prometheus:9090 and click Save & Test.
+3. Open the k6 Load Testing Results click edit on the top right, open the "add" dropdown, click on add visualization
+4. In the open queries tab select prometheus as the data source and open the "code" panel
+5. For memory usage stats enter the following as the metric:
+   (container_memory_usage_bytes{name="firebase-emulator"}
+   /container_spec_memory_limit_bytes{name="firebase-emulator"}) \* 100
+   and click save dashboard
+6. For data usage repeat steps 3 and 4 then enter the following as the metric:
+   sum(rate(container_cpu_usage_seconds_total{name="firebase-emulator"}[1m]))
+   /count(container_cpu_usage_seconds_total{name="firebase-emulator"})\*100
+   and click save dashboard
+7. Run the tests as usual
+
+NOTE: If you change the hardware parameters make sure you run the following instructions
+docker-compose down
+docker container prune
+docker compose up

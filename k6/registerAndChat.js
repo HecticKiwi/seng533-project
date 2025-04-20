@@ -2,12 +2,12 @@ import { check, sleep } from "k6";
 import http from "k6/http";
 
 export let options = {
-  // stages: [
-  //   { duration: "20s", target: 50 },
-  //   // { duration: "20s", target: 100 },
-  //   // { duration: "60s", target: 1000 },
-  //   // { duration: "60s", target: 20000 },
-  // ],
+  stages: [
+    { duration: "20s", target: 50 },
+    // { duration: "20s", target: 100 },
+    // { duration: "60s", target: 1000 },
+    // { duration: "60s", target: 20000 },
+  ],
   //Ramp Testing Parameters
   // stages: [
   //   { duration: "30s", target: 100 },
@@ -22,11 +22,11 @@ export let options = {
   //   { duration: "10s", target: 50 },
   // ],
   //Soak Testing Parameters
-  stages: [
-    { duration: "5m", target: 500 },
-    { duration: "30m", target: 500 },
-    { duration: "5m", target: 50 },
-  ],
+  // stages: [
+  //   { duration: "5m", target: 500 },
+  //   { duration: "30m", target: 500 },
+  //   { duration: "5m", target: 50 },
+  // ],
 };
 
 const AUTH_URL =
